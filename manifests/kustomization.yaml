@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ingress.yaml
+  - ui/
+  - worker/
+namespace: files-zoomoid-de
+labels:
+  - includeSelectors: true
+    includeTemplates: true
+    pairs:
+      app.kubernetes.io/instance: files-zoomoid-de
+      app.kubernetes.io/name: bucket-browser
+      app.kubernetes.io/part-of: bucket-browser

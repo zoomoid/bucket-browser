@@ -1,0 +1,19 @@
+{
+  "name": "worker",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.654.0",
+    "cors": "^2.8.5",
+    "express": "^5.0.0",
+    "pino": "^9.4.0"
+  }
+}

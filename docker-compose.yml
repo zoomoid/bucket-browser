@@ -1,0 +1,32 @@
+services:
+  ui:
+    image: ui
+    links:
+      - worker
+    build:
+      context: ./packages/ui
+      dockerfile: Dockerfile
+      secrets:
+        - ui_env
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8080:3000
+  worker:
+    image: worker
+    build:
+      context: ./packages/worker
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+    secrets:
+      - source: worker_env
+        target: /usr/src/app/.env.local
+
+secrets:
+  worker_env:
+    file: ./packages/worker/.env.local
+  ui_env:
+    file: ./packages/ui/.env.local
