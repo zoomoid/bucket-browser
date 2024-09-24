@@ -8,7 +8,7 @@ const app = express();
 const port = 3000;
 
 const bucketName = process.env.BUCKET_NAME!;
-const bucketEndpoint = new URL(process.env.BUCKET_ENDPOINT!);
+const bucketEndpoint = new URL(process.env.BUCKET_ENDPOINT!) ?? "";
 const bucketRegion = process.env.REGION!;
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID ?? "";
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY ?? "";
