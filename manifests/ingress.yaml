@@ -12,21 +12,21 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: "/api"
+            path: /api
             backend:
               service:
                 name: worker
                 port:
                   number: 80
           - pathType: Prefix
-            path: "/static"
+            path: /static
             backend:
               service:
                 name: worker
                 port:
                   number: 80
-          - pathType: Prefix
-            path: "/"
+          - pathType: ImplementationSpecific
+            path: /
             backend:
               service:
                 name: ui

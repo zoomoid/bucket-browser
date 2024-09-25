@@ -54,8 +54,9 @@ app.get("/api/objects", async (req, res) => {
 
 const staticRedirectPrefix = "/static/"
 
-app.get(staticRedirectPrefix, async (req, res) => {
-  const objectPath = req.path.replace(staticRedirectPrefix, "")
+app.get("/static/:path(*)", async (req, res) => {
+  // @ts-ignore because the @types/express package does some type level stuff to extract the param, but is not aware of regex
+  const objectPath = req.params.path
 
   // fully-qualified path to the bucket
   const objectURL = new URL(bucketEndpoint)
