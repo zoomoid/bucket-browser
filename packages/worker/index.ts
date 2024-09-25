@@ -38,7 +38,7 @@ lister.start()
 
 app.use(cors())
 
-app.get("/api", async (req, res) => {
+app.get("/api/objects", async (req, res) => {
   let list: Awaited<ReturnType<BucketIndex["listBucket"]>>
   if (req.headers["cache-control"] && req.headers["cache-control"] == "no-cache") {
     // get fresh list, otherwise serve from cache
@@ -52,7 +52,7 @@ app.get("/api", async (req, res) => {
   res.setHeader("content-type", "application/json").send(tree.toJSON()).end()
 });
 
-const staticRedirectPrefix = /^\/api\/static\//
+const staticRedirectPrefix = "/static/"
 
 app.get(staticRedirectPrefix, async (req, res) => {
   const objectPath = req.path.replace(staticRedirectPrefix, "")

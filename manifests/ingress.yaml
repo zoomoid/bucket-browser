@@ -19,6 +19,13 @@ spec:
                 port:
                   number: 80
           - pathType: Prefix
+            path: "/static"
+            backend:
+              service:
+                name: worker
+                port:
+                  number: 80
+          - pathType: Prefix
             path: "/"
             backend:
               service:

@@ -4,7 +4,7 @@ resources:
   - ingress.yaml
   - ui/
   - worker/
-namespace: files-zoomoid-de
+namespace: zoomoid-de
 labels:
   - includeSelectors: true
     includeTemplates: true

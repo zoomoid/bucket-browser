@@ -31,10 +31,10 @@ function useFetch(url: string) {
   };
 }
 
+const endpointBaseUrl = import.meta.env.VITE_WORKER_ENDPOINT;
+
 export function DataProvider({ children }: PropsWithChildren<unknown>) {
-  const { objects, error } = useFetch(
-    import.meta.env.VITE_WORKER_ENDPOINT as string
-  );
+  const { objects, error } = useFetch(`${endpointBaseUrl}/objects`);
 
   return (
     <ErrorBoundaryContext.Provider value={error}>
