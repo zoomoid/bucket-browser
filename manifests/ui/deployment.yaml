@@ -20,22 +20,15 @@ spec:
               memory: "128Mi"
               cpu: "500m"
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
               name: http
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx/templates
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            privileged: false
-            readOnlyRootFilesystem: true
           readinessProbe:
             httpGet:
-              path: /healthz
-              port: 3000
+              path: /
+              port: http
             failureThreshold: 3
             initialDelaySeconds: 5
             periodSeconds: 15
@@ -43,8 +36,8 @@ spec:
             timeoutSeconds: 1
           livenessProbe:
             httpGet:
-              path: /healthz
-              port: 3000
+              path: /
+              port: http
             failureThreshold: 3
             initialDelaySeconds: 5
             periodSeconds: 15
