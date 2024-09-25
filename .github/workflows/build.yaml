@@ -81,7 +81,9 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=semver,pattern={{version}}
       - name: Write .env secret to file for docker build
-        run: echo ${{ secrets.UI_ENV }} > ./packages/ui/.env.production.local && stat ./packages/ui/.env.production.local
+        run: echo $UI_ENV > ./.ui_env && stat ./.ui_env
+        env:
+          UI_ENV: ${{ secrets.UI_ENV }}
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@v6
@@ -93,4 +95,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secret-files: |
-            "ui_env=./packages/ui/.env.production.local"
+            "ui_env=./.ui_env"
