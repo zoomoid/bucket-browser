@@ -81,7 +81,7 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
             type=semver,pattern={{version}}
       - name: Write .env secret to file for docker build
-        run: echo $UI_ENV > ./packages/ui/.env.production.local && stat ./packages/ui/.env.production.local
+        run: echo $UI_ENV | base64 --decode > ./packages/ui/.env.production.local && cat ./packages/ui/.env.production.local
         env:
           UI_ENV: ${{ secrets.UI_ENV }}
       - name: Build and push Docker image
