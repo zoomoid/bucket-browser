@@ -22,7 +22,7 @@ COPY . .
 
 # [optional] tests & build
 ENV NODE_ENV=production
-RUN --mount=type=secret,id=ui_env,target=/usr/src/app/.env.production.local cat .env.production.local && bun run build
+RUN --mount=type=secret,id=ui_env,target=/usr/src/app/.env.production.local bun run build
 
 # copy production dependencies and source code into final image
 FROM base AS release
