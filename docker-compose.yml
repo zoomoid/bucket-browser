@@ -11,7 +11,7 @@ services:
     environment:
       NODE_ENV: production
     ports:
-      - 8080:3000
+      - 8080:80
   worker:
     image: worker
     build:
