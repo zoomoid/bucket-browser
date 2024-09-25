@@ -7,19 +7,24 @@ spec:
   template:
     spec:
       securityContext:
-        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
       containers:
         - name: ui
           image: ghcr.io/zoomoid/bucket-browser/ui:latest
           resources:
+            requests:
+              memory: 100Mi
+              cpu: 100m
             limits:
               memory: "128Mi"
               cpu: "500m"
           ports:
             - containerPort: 3000
               name: http
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/templates
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -27,7 +32,6 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-            runAsNonRoot: true
           readinessProbe:
             httpGet:
               path: /healthz
@@ -46,3 +50,7 @@ spec:
             periodSeconds: 15
             successThreshold: 1
             timeoutSeconds: 1
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: worker-nginx-config

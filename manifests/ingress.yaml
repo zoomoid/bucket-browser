@@ -35,4 +35,4 @@ spec:
   tls:
     - hosts:
         - files.zoomoid.de
-      secret: files-zoomoid-de-tls
+      secretName: files-zoomoid-de-tls

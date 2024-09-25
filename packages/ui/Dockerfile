@@ -20,17 +20,10 @@ FROM base AS prerelease
 COPY --from=install /temp/prod/node_modules node_modules
 COPY . .
 
-# [optional] tests & build
+# build
 ENV NODE_ENV=production
 RUN --mount=type=secret,id=ui_env,target=/usr/src/app/.env.production.local bun run build
 
-# copy production dependencies and source code into final image
-FROM base AS release
-COPY --from=prerelease /usr/src/app/dist dist
-RUN bun install serve
-COPY --from=prerelease /usr/src/app/package.json .
+FROM nginx
 
-# run the app
-USER bun
-EXPOSE 3000/tcp
-ENTRYPOINT [ "bun", "run", "serve" ]
+COPY --from=prerelease /usr/src/app/dist /usr/share/nginx/html
